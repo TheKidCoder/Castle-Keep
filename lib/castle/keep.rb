@@ -47,8 +47,8 @@ module Castle
     # $password_reset.failed: Use to record when a user failed to reset their password.
     # $password_change.succeeded: Use to record when a user changed their password. This event is only logged when users change their own password.
     # $password_change.failed: Use to record when a user failed to change their password.
-    def track(event_name, user_id = nil, details: nil)
-      if user_id.nil? and details.nil?
+    def track(event_name, user_id: nil, details: nil)
+      if user_id.nil? && details.nil?
         fail ArgumentError, "Missing both user_id and details"
       end
 
