@@ -21,7 +21,35 @@ Castle.api_secret = 'YOUR_API_SECRET'
 
 ## Usage
 
-TODO: Write usage instructions here
+A new instance of `Castle::Keep` should be created for each request that comes through your stack.
+
+Sinatra Example:
+```ruby
+module Sinatra
+  module CastleHelper
+    def castle
+      @castle ||= Castle::Keep.new(request.cookies['__cid'], request.ip, request.env.keys.grep(/^HTTP_/).map do |header|
+        name = header.gsub(/^HTTP_/, '').split('_').map(&:capitalize).join('-')
+        unless name == "Cookie"
+          { name => request.env[header] }
+        end
+      end.compact.inject(:merge))
+    end
+  end
+  helpers CastleHelper
+end
+```
+
+Once the helper is loaded you can then do:
+```ruby
+begin
+  castle.track(
+    name: '$login.succeeded',
+    user_id: user.id)
+rescue Castle::Error => e
+  puts e.message
+end
+```
 
 ## Development
 
@@ -31,4 +59,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/castle-keep.
+Bug reports and pull requests are welcome on GitHub at https://github.com/thekidcoder/castle-keep.
