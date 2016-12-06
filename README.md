@@ -1,8 +1,9 @@
 # Castle::Keep
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/castle/keep`. To experiment with that code, run `bin/console` for an interactive prompt.
+This is a minimal implementation of the Castle.io Server-Side API.
+This gem exists because the official [castle-rb](https://github.com/castle/castle-ruby) gem has quite a few external dependencies that can cause compatibility issues.
 
-TODO: Delete this and the text above, and describe your gem
+The code for the initial version of this gem was taken directly from [carlhoerberg](https://github.com/carlhoerberg)'s [gist](https://gist.github.com/carlhoerberg/d5537dd3990c7e3042942f587801b9cd)
 
 ## Installation
 
@@ -12,13 +13,11 @@ Add this line to your application's Gemfile:
 gem 'castle-keep'
 ```
 
-And then execute:
+Load and configure the library with your Castle API secret in an initializer or similar.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install castle-keep
+```ruby
+Castle.api_secret = 'YOUR_API_SECRET'
+```
 
 ## Usage
 
@@ -33,4 +32,3 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/castle-keep.
-
