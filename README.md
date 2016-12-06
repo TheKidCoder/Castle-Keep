@@ -22,28 +22,24 @@ Castle.api_secret = 'YOUR_API_SECRET'
 ## Usage
 
 A new instance of `Castle::Keep` should be created for each request that comes through your stack.
+I recommend using a per-request global storage system like [request_store](https://github.com/steveklabnik/request_store)
 
-Sinatra Example:
+Rails Example:
 ```ruby
-module Sinatra
-  module CastleHelper
-    def castle
-      @castle ||= Castle::Keep.new(request.cookies['__cid'], request.ip, request.env.keys.grep(/^HTTP_/).map do |header|
-        name = header.gsub(/^HTTP_/, '').split('_').map(&:capitalize).join('-')
-        unless name == "Cookie"
-          { name => request.env[header] }
-        end
-      end.compact.inject(:merge))
-    end
+class ApplicationController < ActionController::Base
+  before_filter :_set_castle
+
+  private
+  def _set_castle
+    RequestStore.store[:castle] = Castle::Keep.create_context(request)
   end
-  helpers CastleHelper
 end
 ```
 
 Once the helper is loaded you can then do:
 ```ruby
 begin
-  castle.track(
+  RequestStore.store[:castle].track(
     name: '$login.succeeded',
     user_id: user.id)
 rescue Castle::Error => e

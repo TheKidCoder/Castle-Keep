@@ -12,6 +12,15 @@ module Castle
   end
 
   class Keep
+    def self.create_context(request)
+      Castle::Keep.new(request.cookies['__cid'], request.ip, request.env.keys.grep(/^HTTP_/).map do |header|
+        name = header.gsub(/^HTTP_/, '').split('_').map(&:capitalize).join('-')
+        unless name == "Cookie"
+          { name => request.env[header] }
+        end
+      end.compact.inject(:merge))
+    end
+
     def initialize(cookie_id, ip, headers)
       @http = Net::HTTP.new "api.castle.io", 443
       @http.use_ssl = true

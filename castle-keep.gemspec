@@ -5,7 +5,7 @@ require 'castle/keep/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "castle-keep"
-  spec.version       = Castle::Keep::VERSION
+  spec.version       = Castle::VERSION
   spec.authors       = ["Christopher Ostrowski"]
   spec.email         = ["chris.ostrowski@gmail.com"]
 
