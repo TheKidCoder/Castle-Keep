@@ -1,7 +1,11 @@
 # Castle::Keep
 
 This is a minimal implementation of the Castle.io Server-Side API.
-This gem exists because the official [castle-rb](https://github.com/castle/castle-ruby) gem has quite a few external dependencies that can cause compatibility issues.
+~~This gem exists because the official [castle-rb](https://github.com/castle/castle-ruby) gem has quite a few external dependencies that can cause compatibility issues.~~
+
+## DEPRECATED.
+
+### This gem should not be used. The Official [castle-rb](https://github.com/castle/castle-ruby) gem has been updated to remove external dependencies.
 
 The code for the initial version of this gem was taken directly from [carlhoerberg](https://github.com/carlhoerberg)'s [gist](https://gist.github.com/carlhoerberg/d5537dd3990c7e3042942f587801b9cd)
 
